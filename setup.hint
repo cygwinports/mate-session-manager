@@ -1,0 +1,5 @@
+category: MATE
+requires: cygutils libdbus1_3 libdbus-glib_1_2 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk2.0_0 libICE6 libintl8 libmateconf2_4 libSM6 libX11_6 libXau6 libXext6 libXrender1 libXtst6 mate-applets mate-backgrounds mate-calc mate-conf mate-control-center mate-desktop mate-document-viewer mate-file-archiver mate-file-manager mate-image-viewer mate-keyring mate-media mate-notification-daemon mate-panel mate-settings-daemon mate-terminal mate-text-editor mate-utils mate-window-manager xinit
+sdesc: "Starts the MATE Desktop"
+ldesc: "MATE is a fork of the GNOME 2 desktop. It provides an intuitive
+and attractive desktop to Linux users using traditional metaphors."
