@@ -1,4 +1,0 @@
-inherit mate
-
-
-PATCH_URI="1.2.0-no-upower.patch"
