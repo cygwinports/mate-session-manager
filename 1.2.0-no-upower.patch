@@ -13,7 +13,7 @@
 +        have_upower=false)
 +
 +if test "$have_upower" = true; then
-+  AC_DEFINE(WITH_UPOWER, 1, [Set to 1 if upower-glib is available.])
++  AC_DEFINE(HAVE_UPOWER, 1, [Set to 1 if upower-glib is available.])
 +fi
 +
  PKG_CHECK_MODULES(SESSION_PROPERTIES,
@@ -25,7 +25,7 @@
  #include <glib/gi18n.h>
  #include <gtk/gtk.h>
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
  #include <upower.h>
 +#endif
  
@@ -35,17 +35,17 @@
  {
          GsmDialogLogoutType  type;
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          UpClient            *up_client;
 +#endif
-         GsmConsolekit       *consolekit;
- 
-         int                  timeout;
+ #ifdef HAVE_SYSTEMD
+         GsmSystemd          *systemd;
+ #endif
 @@ -142,7 +146,9 @@ gsm_logout_dialog_init (GsmLogoutDialog
          gtk_window_set_keep_above (GTK_WINDOW (logout_dialog), TRUE);
          gtk_window_stick (GTK_WINDOW (logout_dialog));
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          logout_dialog->priv->up_client = up_client_new ();
 +#endif
  
@@ -55,7 +55,7 @@
                  logout_dialog->priv->timeout_id = 0;
          }
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          if (logout_dialog->priv->up_client) {
                  g_object_unref (logout_dialog->priv->up_client);
                  logout_dialog->priv->up_client = NULL;
@@ -68,7 +68,7 @@
  static gboolean
  gsm_logout_supports_system_suspend (GsmLogoutDialog *logout_dialog)
  {
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          return up_client_get_can_suspend (logout_dialog->priv->up_client);
 +#else
 +        return FALSE;
@@ -78,7 +78,7 @@
  static gboolean
  gsm_logout_supports_system_hibernate (GsmLogoutDialog *logout_dialog)
  {
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          return up_client_get_can_hibernate (logout_dialog->priv->up_client);
 +#else
 +        return FALSE;
@@ -92,7 +92,7 @@
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
  #include <upower.h>
 +#endif
  
@@ -102,7 +102,7 @@
          DBusGProxy             *bus_proxy;
          DBusGConnection        *connection;
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          /* Interface with other parts of the system */
          UpClient               *up_client;
 +#endif
@@ -113,7 +113,7 @@
  static void
  manager_attempt_hibernate (GsmManager *manager)
  {
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          gboolean  can_hibernate;
          GError   *error;
          gboolean  ret;
@@ -127,7 +127,7 @@
  static void
  manager_attempt_suspend (GsmManager *manager)
  {
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          gboolean  can_suspend;
          GError   *error;
          gboolean  ret;
@@ -143,7 +143,7 @@
                  manager->priv->mateconf_client = NULL;
          }
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          if (manager->priv->up_client != NULL) {
                  g_object_unref (manager->priv->up_client);
                  manager->priv->up_client = NULL;
@@ -156,7 +156,7 @@
                            G_CALLBACK (on_presence_status_changed),
                            manager);
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          manager->priv->up_client = up_client_new ();
 +#endif
  
@@ -166,7 +166,7 @@
          gboolean can_suspend;
          gboolean can_hibernate;
  
-+#ifdef WITH_UPOWER
++#ifdef HAVE_UPOWER
          g_object_get (manager->priv->up_client,
                        "can-suspend", &can_suspend,
                        "can-hibernate", &can_hibernate,
