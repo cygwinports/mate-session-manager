@@ -1,16 +1,15 @@
 inherit mate
 
 NAME="mate-session-manager"
-VERSION=1.6.1
+VERSION=1.8.0
 RELEASE=1
 CATEGORY="MATE"
 SUMMARY="Starts the MATE Desktop"
 DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 REQUIRES="mate-applets mate-backgrounds mate-calc mate-conf mate-control-center"
-REQUIRES+=" mate-desktop mate-document-viewer mate-file-archiver mate-file-manager"
-REQUIRES+=" mate-image-viewer mate-keyring mate-media mate-notification-daemon"
-REQUIRES+=" mate-panel mate-settings-daemon mate-terminal mate-text-editor"
-REQUIRES+=" mate-utils mate-window-manager xinit"
+REQUIRES+=" mate-desktop atril caja engrampa eom marco pluma"
+REQUIRES+=" mate-media mate-notification-daemon mate-panel mate-settings-daemon"
+REQUIRES+=" mate-terminal mate-utils xinit"
 
-PATCH_URI="1.2.0-no-upower.patch"
+PATCH_URI="1.8.0-disable-upower.patch"
