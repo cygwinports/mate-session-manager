@@ -2,15 +2,26 @@ inherit mate
 
 NAME="mate-session-manager"
 VERSION=1.8.1
-RELEASE=5
+RELEASE=6
 CATEGORY="MATE"
 SUMMARY="Starts the MATE Desktop"
 DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 
+SRC_URI+=" mimeapps.list"
+# https://github.com/mate-desktop/mate-session-manager/issues/86
+PATCH_URI="1.8.1-xdg_current_desktop.patch"
+
 REQUIRES="mate-applets mate-backgrounds mate-calc mate-control-center"
-REQUIRES+=" mate-desktop atril caja engrampa eom marco pluma"
+REQUIRES+=" mate-desktop atril caja engrampa eom marco pluma yelp"
 REQUIRES+=" mate-media mate-notification-daemon mate-panel mate-settings-daemon"
 REQUIRES+=" mate-terminal mate-utils xdg-user-dirs-gtk xinit"
 
 CYGCONF_ARGS="--disable-upower"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	newmenu ${S}/mimeapps.list mate-mimeapps.list
+}
