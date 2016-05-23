@@ -1,7 +1,7 @@
 inherit mate
 
 NAME="mate-session-manager"
-VERSION=1.10.2
+VERSION=1.14.0
 RELEASE=1
 CATEGORY="MATE"
 SUMMARY="Starts the MATE Desktop"
