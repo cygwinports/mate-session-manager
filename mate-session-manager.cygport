@@ -8,9 +8,19 @@ SUMMARY="Starts the MATE Desktop"
 DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 
+SRC_URI+=" mate.ico"
+
 REQUIRES="mate-applets mate-backgrounds galculator mate-control-center"
 REQUIRES+=" mate-desktop atril caja engrampa eom marco pluma yelp"
 REQUIRES+=" mate-media mate-notification-daemon mate-panel mate-settings-daemon"
 REQUIRES+=" mate-terminal mate-utils xdg-user-dirs-gtk xinit gnome-keyring"
 
 CYGCONF_ARGS="--disable-upower"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	insinto /usr/share/pixmaps/xwin
+	doins ${S}/mate.ico
+}
